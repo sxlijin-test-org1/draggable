@@ -40,7 +40,7 @@ jobs:
       
       - run: |
           mkdir -p .trunk
-          echo >.trunk/trunk.yaml <<EOF
+          echo  <<EOF >.trunk/trunk.yaml
           cli:
             version: 1.13.0
             
