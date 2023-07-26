@@ -54,6 +54,7 @@ jobs:
             enabled:
               - trufflehog@3.45.1
           EOF
+          cat -n .trunk/trunk.yaml
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
