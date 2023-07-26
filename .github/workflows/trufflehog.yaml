@@ -26,3 +26,40 @@ jobs:
           arguments: --filter=trufflehog
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check (trufflehog)
+
+  trunk_check2:
+    name: Trunk Check Runner 2
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write # For trunk to post annotations
+      contents: read # For repo checkout
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - run: |
+          echo >.trunk/trunk.yaml <<EOF
+          cli:
+            version: 1.13.0
+            
+          plugins:
+            sources:
+              - id: trunk
+                ref: v1.0.0
+                uri: https://github.com/trunk-io/plugins
+
+          lint:
+            enabled:
+              - trufflehog@3.45.1
+          EOF
+
+      - name: Trunk Check
+        uses: trunk-io/trunk-action@v1
+        with:
+          debug: true
+          post-init: $TRUNK_PATH check enable trufflehog
+          arguments: --filter=trufflehog
+        env:
+          TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check (trufflehog)
+
