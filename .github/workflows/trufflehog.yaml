@@ -21,7 +21,7 @@ jobs:
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
         with:
-          post-init: trunk check enable trufflehog
+          post-init: $TRUNK_PATH check enable trufflehog
           arguments: --filter=trufflehog
         env:
           TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check (trufflehog)
